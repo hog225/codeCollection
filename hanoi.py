@@ -2,16 +2,12 @@ N = int(input())
 global Count
 
 
-
-def h(N, s, t, v):
-    if (N == 1):
-        print (s, t)
-
+def h(N, S, V, G):
+    if N == 1:
+        print(S, G)
     else:
-        h(N-1, s, v, t)
-        print (s, t)
+        h(N-1, S, G, V)
+        print(S, G)
+        h(N-1, V, S, G)
 
-        h(N-1, v, t, s)
-
-print(2**N -1)
-h(N, 1, 3, 2)
+h(N, 1, 2, 3)
