@@ -1,50 +1,26 @@
-package DynamicPrograming;
+
 import java.util.*;
 import java.io.*;
 
 public class climing {
     static int N;
-    static int d[] = new int[301];
-    static int t[] = new int[301];
+    static int in[] = new int[301];
+    static int re[] = new int[301];
     static int maxval; 
 
     //재귀 
-    static void clime(int n, int sum, int step, int idx){
-        
-        if (n == N-1){
-            if (sum >= maxval){
-                maxval = sum;
-            }
-            t[idx] = n;
-            System.out.print(" "+ t[0] + " "+ t[1] + " "+ t[2] + " "+ t[3] + " "+ t[3]);
-            System.out.println("");
-            // return sum;
-        } else {
-            
-            for (int i=0; i< 2; i++){
-                if (n == 0){
-                    n = i;
-                    step =2;
-                    System.out.println("eeeeeeee");
-                }
-                    
-                t[idx] = n;
-                if (((N-1) - n) == 2){
-                    clime(n+2, sum, 2, ++idx);
-                } else if (((N-1)-n) == 1){
-                    clime(n+1, sum, 1, ++idx);
-                } else if (step == 1){
-                    clime(n+2, sum, 2, ++idx);
-                } else if (step == 2){
-                    
-                    clime(n+1, sum, 1, ++idx);
-                    clime(n+2, sum, 2, ++idx);
-                } else {
-                    clime(n+1, sum, 1, ++idx);
-                }
-            }
+    static void clime(){
+        re[0] = in[0];
+        re[1] = Math.max(in[1] + in[0], in[1]);
+        re[2] = in[2] + Math.max(in[0], in[1]);
+        for (int i =3; i< N; i++){
+            int s1 = in[i-1] + re[i-3];
+            int s2 = re[i-2];
+            re[i] = in[i] + Math.max(s1, s2);
 
         }
+        System.out.println(re[N-1]);
+
     }
   
     public static void main(String[] args) throws Exception {
@@ -54,9 +30,8 @@ public class climing {
       
         N = Integer.parseInt(br.readLine());
         for (int i=0; i<N; i++){
-          d[i] = Integer.parseInt(br.readLine());
+          in[i] = Integer.parseInt(br.readLine());
         }    
-        System.out.println(N);
-        clime(0, 0, 0, 0);
+        clime();
     }
 }
