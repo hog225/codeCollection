@@ -1,10 +1,10 @@
-package javaBasic.threadstudy.lambda;
+package javaBasic.lambda;
 
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -140,6 +140,23 @@ class StreamTest {
         Stream<String> strArrStream = lineStream.flatMap(line->Stream.of(line.split(" +")));
         //strArrStream.forEach();
         Optional<String> oString = Optional.of("dd");
+
+        int sum = IntStream.rangeClosed(1, 10).reduce(0, (al, be)-> al+be);
+        System.out.println("reduce " + sum);
+        List<String> myList = new ArrayList<>();
+        myList.add("ferrai");
+        myList.add("ferrai1");
+        myList.add("ferrai23");
+        myList.add("BMW");
+
+        List<String> collList = myList.stream().map(str->str.toUpperCase()).collect(Collectors.toList());
+        List<String> linkedCollList = myList.stream().map(str->str.toLowerCase()).collect(Collectors.toCollection(LinkedList::new));
+        System.out.println(collList);
+        System.out.println(linkedCollList);
+
+        Stream<Integer> intStreams = IntStream.rangeClosed(0, 10).boxed();
+
+
 
     }
 }
